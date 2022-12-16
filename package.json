@@ -1,0 +1,16 @@
+{
+  "name": "inline-stellar-examples",
+  "version": "1.0.0",
+  "description": "A collection of advanced wallet features that can be used as inspiration or 'recipes' in your own Stellar apps.",
+  "scripts": {
+    "start": "parcel"
+  },
+  "source": [
+    "createCB/index.html",
+    "claimCB/index.html"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "parcel": "^2.8.2"
+  }
+}

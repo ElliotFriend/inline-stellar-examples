@@ -45,9 +45,7 @@ const createClaimableBalance = async (store) => {
   } catch (error) {
     console.error(
       `${error}. More details:\n${JSON.stringify(
-        error.response.data.extras,
-        null,
-        2
+        error.response.data.extras, null, 2
       )}`
     );
   }

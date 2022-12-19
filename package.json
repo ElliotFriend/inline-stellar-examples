@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A collection of advanced wallet features that can be used as inspiration or 'recipes' in your own Stellar apps.",
   "scripts": {
-    "start": "parcel"
+    "start": "parcel index.html --open"
   },
   "source": [
     "createCB/index.html",

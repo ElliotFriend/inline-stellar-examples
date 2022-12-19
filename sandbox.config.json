@@ -1,8 +1,3 @@
 {
-  "template": "parcel",
-  "container": {
-    "port": 1234,
-    "startScript": "start",
-    "node": "16"
-  }
+  "template": "parcel"
 }

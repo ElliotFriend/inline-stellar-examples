@@ -64,7 +64,7 @@ document.addEventListener('alpine:init', () => {
     cbId: '',
 
     async createCB() {
-      await createClaimableBalance(this)
+      createClaimableBalance(this)
     }
   }))
 })

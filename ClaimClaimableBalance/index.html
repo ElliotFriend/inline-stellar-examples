@@ -1,0 +1,51 @@
+<div class="container mx-auto">
+  <h2 class="text-2xl font-bold">Claim Claimable Balance</h2>
+  <div x-data="$store.claimClaimableBalanceStore"
+    class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <form @submit.prevent>
+      <label for="claimantPubkey">Claimant Public Key</label><br />
+      <input type="text" name="claimantPubkey" id="claimantPubkey" x-model="claimant" /><br />
+
+      <template x-if="!fetchedCBs">
+        <button
+          class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+          @click="fetchClaimableBalances">
+          Fetch Available CBs
+        </button>
+      </template>
+
+      <div x-show="fetchedCBs">
+
+        <div x-show="cbArray.length !== 0">
+          <template x-for="record in cbArray" :key="record.id">
+            <label>
+              <input type="checkbox" :value="record.id" x-model="selectedCBs">
+              <span
+                x-text="`${parseFloat(record.amount)} ${record.asset === 'native' ? 'XLM' : record.asset}`"></span></span>
+            </label><br />
+          </template><br />
+
+          <label for="claimantSecret">Claimant Secret Key</label><br />
+          <input type="password" name="claimantSecret" id="claimantSecret" x-model="secret" /><br />
+          <button
+            class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+            type="submit" @click="claimSelectedBalances()">
+            Claim Selected Balances
+          </button><br />
+        </div>
+
+        <div x-show="cbArray.length === 0">
+          No claimable balances found<br />
+        </div>
+
+        <button
+          class="bg-red-500 text-white active:bg-red-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+          @click="resetState">
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <p>Transaction Hash: <span x-text="txHash"></span></p>
+  </div>
+</div>

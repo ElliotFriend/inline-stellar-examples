@@ -7,8 +7,9 @@
   },
   "source": [
     "index.html",
-    "createCB/index.html",
-    "claimCB/index.html"
+    "createClaimableBalance/index.html",
+    "claimClaimableBalance/index.html",
+    "feeBumpTransaction/index.html"
   ],
   "dependencies": {},
   "devDependencies": {

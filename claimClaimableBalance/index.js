@@ -61,6 +61,7 @@ document.addEventListener('alpine:init', () => {
 
     resetState() {
       this.cbArray = [];
+      this.selectedCBs = [];
       this.fetchedCBs = false;
       this.txHash = '';
     },

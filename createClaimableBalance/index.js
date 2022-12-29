@@ -50,7 +50,7 @@ const createClaimableBalance = async (store) => {
 
 
 document.addEventListener('alpine:init', () => {
-  Alpine.store('createCB', () => ({
+  Alpine.store('createClaimableBalanceStore', () => ({
     source: 'GBCZUDIPBLG2A5VJSUWH2J547QZXVCTA3WMCVNGHHD3PYFALJPWO2G3J',
     destination: 'GDRZF5NWK5GZX6WTGFXP2RRPEXIYTSLM3DYZCV6E5NYXZTX4GEMDGAV4',
     asset: {
@@ -63,7 +63,7 @@ document.addEventListener('alpine:init', () => {
     txHash: '',
     cbId: '',
 
-    async createCB() {
+    async createClaimableBalance() {
       createClaimableBalance(this)
     }
   }))

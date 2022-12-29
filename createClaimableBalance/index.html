@@ -1,6 +1,6 @@
 <div class="container mx-auto p-3">
   <h1 class="text-2xl font-bold">Create Claimable Balance</h1>
-  <div x-data="$store.createCB" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
+  <div x-data="$store.createClaimableBalanceStore" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
     <form @submit.prevent>
       <label for="pubkey">Source Public Key</label><br />
       <input type="text" name="pubkey" id="pubkey" x-model="source" /><br />
@@ -25,7 +25,7 @@
 
       <button
         class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
-        type="submit" @click="createCB()">Create CB!</button>
+        type="submit" @click="createClaimableBalance()">Create CB!</button>
     </form>
 
     <p>Transaction Hash: <span x-text="txHash"></span></p>

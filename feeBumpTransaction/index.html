@@ -1,0 +1,44 @@
+<div class="container mx-auto p-3">
+  <h1 class="text-2xl font-bold">Fee Bump Transaction</h1>
+  <div x-data="$store.feeBumpTransactionStore"
+    class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
+    <form @submit.prevent>
+      <label for="pubkey">Fee Source Public Key</label><br />
+      <input type="text" name="pubkey" id="pubkey" class="w-full" x-model="source" /><br />
+
+      <label for="baseFee">Base Fee</label><br />
+      <input type="number" name="baseFee" id="baseFee" x-model="baseFee" /><br />
+
+      <label for="innerTx">Inner Transaction XDR</label><br />
+      <textarea name="innerTx" id="innerTx" rows="4" x-model="innerTx" class="block p-2.5 w-full"></textarea>
+
+      <button
+        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+        type="submit" @click="wrapInFeeBump()">Wrap Transaction!</button>
+
+      <div x-show="feeBumpXDR">
+        <p class="pb-2">Fee Bump Transaction Envelope: <span class="block w-full font-mono break-all" x-text="feeBumpXDR"></span></p>
+
+        <label for="seckey">Fee Source Secret Key</label><br />
+        <input type="password" name="seckey" id="seckey" class="w-full" x-model="secret" /><br />
+
+        <button
+          class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+          type="submit" @click="signFeeBumpTransaction()">Sign Transaction!</button>
+
+        <div x-show="signedXDR">
+          <p class="pb-2">Signed Fee Bump Transaction: <span class="block w-full font-mono break-all" x-text="signedXDR"></span></p>
+
+          <button
+            class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+            type="submit" @click="submitFeeBumpTransaction()">Submit Transaction!</button>
+
+          <div x-show="txHash">
+            <p class="pb-2">Transaction Hash: <span class="block w-full font-mono" x-text="txHash"></span></p>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

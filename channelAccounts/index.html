@@ -1,0 +1,60 @@
+<div class="container mx-auto p-3">
+  <h1 class="text-2xl font-bold">Channel Accounts</h1>
+  <p>This is a simple illustration for the use of Channel Accounts. We will have a sender, making multiple small payments to a recipient in quick succession. We will use a number of channel accounts to facilitate these payments.</p>
+  <div x-data="$store.channelAccountsStore" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
+    <form @submit.prevent>
+      <h2 class="text-xl font-bold">Channel Setup</h2>
+      <p>All the payments made will go to the <em>Destination</em>, while they will be coming from the <em>Sender</em>.</p>
+      <label for="destination">Payment Destination</label><br />
+      <input type="text" name="destination" id="destination" x-model="recipientPublic" class="w-full" /><br />
+
+      <label for="senderPublic">Payment Sender Public Key</label><br />
+      <input type="text" name="senderPublic" id="senderPublic" x-model="senderPublic" class="w-full" /><br />
+
+      <label for="senderSecret">Payment Sender Secret Key</label><br />
+      <input type="password" name="senderSecret" id="senderSecret" x-model="senderSecret" class="w-full" /><br />
+
+      <label for="numChannels">Number of Channel Accounts</label><br />
+      <input type="number" name="numChannels" id="numChannels" x-model.number="numChannels" aria-describedby="helper-text-numChannels" /><br />
+      <p id="helper-text-numChannels" class="mt-2 text-sm text-gray-500 dark:text-gray 400">Each of these channel accounts will make a payment to the destination, with an increasing amount (1xlm, 2xlm, 3xlm, etc.)</p>
+
+      <button
+        class="mt-2 bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+        @click="generateChannelAccounts()">Generate Channel Accounts
+      </button>
+
+      <div x-cloak x-show="channelKeypairs.length > 0" x-transition>
+        <h2 class="mt-3 text-xl font-bold">Generated Channel Accounts</h2>
+        <p class="mt-2">These accounts will be used to pay fees and sequence numbers, while the actual XLM will still come out of the <em>Sender</em> account.</p>
+        <p class="mt-2"><strong>Please Be Kind!</strong> You likely just funded a bunch of accounts using Friendbot. Please give him back the funds once you are finished, by using the "Clean Up Channel Accounts" button below. Thank you.</p>
+        <ul class="mt-2 list-disc">
+          <template x-for="kp in channelKeypairs">
+            <li class="font-mono" x-text="kp.publicKey()" :id="kp.publicKey()"></li>
+          </template>
+        </ul>
+
+        <div x-show="channelAccounts.length === numChannels" x-transition>
+          <button
+            class="mt-2 bg-emerald-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+            @click="simulateTransactions()">Send All Payments
+          </button>
+
+          <button
+            class="mt-2 bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+            @click="cleanUpChannelAccounts()">Clean Up Channel Accounts
+          </button>
+        </div>
+
+        <div x-show="paymentResults.length > 0" x-transition>
+          <h2 class="mt-3 text-xl font-bold">Transaction Results</h2>
+          <p class="mt-2">As the transactions are completed, you will see a list below populate with the results from each. Notice they are completed in an arbitrary order, which would make these kinds of "rapid-fire" payments much more difficult with a single source account.</p>
+          <ul class="text-xs mt-2 list-disc" x-id="['payment-result']">
+            <template x-for="result in paymentResults">
+              <li class="font-mono" x-text="`${result.amount}XLM - ${result.channelPublic.substring(0, 4)}...${result.channelPublic.substring(52)} - ${result.hash}`" :id="$id('payment-result')"></li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
